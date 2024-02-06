@@ -1,4 +1,4 @@
-import LotCard from "@/components/modules/browse/lot-card/LotCard";
+import LotCard from "@/components/modules/lot-card";
 
 export default function Home() {
   return (
