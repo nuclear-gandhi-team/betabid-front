@@ -53,7 +53,7 @@ const LotCard = ({
             <div className="truncate w-[225px]">{title}</div>
           </CardTitle>
           <CardDescription>
-            <Status status={status}></Status>
+            <Status>{status}</Status>
           </CardDescription>
         </div>
         <div className="flex justify-start">
