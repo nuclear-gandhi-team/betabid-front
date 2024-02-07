@@ -1,6 +1,6 @@
 import {
   BadgeDollarSignIcon,
-  BookTextIcon,
+  CalendarFoldIcon,
   MoveUpRightIcon,
   UserIcon,
 } from "lucide-react";
@@ -50,8 +50,12 @@ const Actions = () => {
         >
           23
         </LotActionCard>
-        <LotActionCard title="Author" icon={<BookTextIcon />}>
-          HJyup
+        <LotActionCard
+          title="Deadline"
+          description="Only 3 days left to bid"
+          icon={<CalendarFoldIcon />}
+        >
+          26 April 2024
         </LotActionCard>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 pt-4">
@@ -63,7 +67,7 @@ const Actions = () => {
             <RateChangesGraph data={temporary_data} />
           </CardContent>
         </Card>
-        <Card className="col-span-3">
+        <Card className="md:col-span-3 col-span-4">
           <CardHeader>
             <CardTitle>Rate history</CardTitle>
             <CardDescription>
