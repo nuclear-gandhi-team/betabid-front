@@ -1,17 +1,27 @@
-import { CircleIcon, StarFilledIcon, StarIcon } from "@radix-ui/react-icons";
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Star } from "@/components/ui/star";
+import { Status } from "@/components/ui/status";
+import { TagsList } from "@/components/ui/tags";
 
 export interface LotCardProps {
   title: string;
   imageSrc: string;
-  status: string;
+  status: "preparing" | "active" | "ended";
   isSaved: boolean;
+  currentPrice: number;
   deadline: string;
-  tag: string;
+  tags: string[];
 }
 
 const LotCard = ({
@@ -19,41 +29,47 @@ const LotCard = ({
   imageSrc,
   status,
   isSaved,
+  currentPrice,
   deadline,
-  tag,
-}: LotCardProps) => (
-  <Card className="w-[360px]">
-    <div className="w-full h-64 bg-red-400 rounded-t-xl overflow-hidden">
-      <Image src={imageSrc} alt="card_image" width={360} height={0} />
-    </div>
-    <CardHeader className="grid grid-cols-[1fr_110px] items-start gap-4 space-y-0">
-      <div className="space-y-1">
-        <CardTitle>{title}</CardTitle>
-      </div>
-      <div className="flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
-        <Button variant="secondary" className="px-3 shadow-none">
-          {status}
-        </Button>
-        <Separator orientation="vertical" className="h-[20px]" />
-        <Button variant="secondary" className="px-1 shadow-none">
-          {isSaved ? (
-            <StarFilledIcon className="mr-2 h-4 w-4" color="black" />
-          ) : (
-            <StarIcon className="mr-2 h-4 w-4" color="black" />
-          )}
-        </Button>
-      </div>
-    </CardHeader>
-    <CardContent>
-      <div className="flex space-x-4 text-sm text-muted-foreground">
-        <div className="flex items-center">
-          <CircleIcon className="mr-1 h-3 w-3 fill-sky-400 text-sky-400" />
-          {tag}
+  tags,
+}: LotCardProps) => {
+  const [isSavedLot, setIsSaved] = useState(isSaved),
+    toggleSave = () => {
+      console.log("changed");
+      setIsSaved(!isSavedLot);
+    };
+  return (
+    <Card className="w-[360px] relative">
+      <div className="w-full h-64 rounded-t-xl overflow-hidden relative">
+        <div className="absolute right-0 m-4">
+          <Star isSaved={isSavedLot} toggleSave={toggleSave}></Star>
         </div>
-        <div>{deadline}</div>
+        <Image src={imageSrc} alt="card_image" width={360} height={0} />
       </div>
-    </CardContent>
-  </Card>
-);
+
+      <CardHeader>
+        <div className="flex justify-between">
+          <CardTitle>
+            <div className="truncate w-[225px]">{title}</div>
+          </CardTitle>
+          <CardDescription>
+            <Status status={status}></Status>
+          </CardDescription>
+        </div>
+        <div className="flex justify-start">
+          <TagsList tags={tags}></TagsList>
+        </div>
+      </CardHeader>
+
+      <CardContent>
+        <div>Current Price: {currentPrice}$</div>
+      </CardContent>
+
+      <CardFooter>
+        <CardDescription>Till {deadline}</CardDescription>
+      </CardFooter>
+    </Card>
+  );
+};
 
 export default LotCard;
