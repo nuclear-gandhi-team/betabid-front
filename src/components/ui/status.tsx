@@ -1,7 +1,7 @@
 import React from "react";
 
 interface StatusProps {
-  status: "preparing" | "active" | "ended";
+  children: "preparing" | "active" | "ended";
 }
 
 const getStatusStyles = (status: "preparing" | "active" | "ended") => {
@@ -17,14 +17,14 @@ const getStatusStyles = (status: "preparing" | "active" | "ended") => {
   }
 };
 
-const Status: React.FC<StatusProps> = ({ status }) => {
-  const { circle, text } = getStatusStyles(status);
+const Status: React.FC<StatusProps> = ({ children }) => {
+  const { circle, text } = getStatusStyles(children);
   return (
     <div className="flex items-center">
       <span
         className={`inline-block h-1.5 w-1.5 mr-1.5 rounded-full ${circle}`}
       />
-      <span className={`${text} capitalize font-medium`}>{status}</span>
+      <span className={`${text} capitalize font-medium`}>{children}</span>
     </div>
   );
 };
