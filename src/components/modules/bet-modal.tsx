@@ -2,6 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { HandCoins } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -49,7 +50,10 @@ const BetModal = ({ currentPrice, minStep }: BetModalProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size="sm">Make a bet</Button>
+        <Button className="h-9 items-center justify-center rounded-lg">
+          <HandCoins className="h-5 mr-2" />
+          Bid
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -82,7 +86,7 @@ const BetModal = ({ currentPrice, minStep }: BetModalProps) => {
             />
             <DialogFooter className="gap-3 sm:gap-0">
               <DialogClose asChild>
-                <Button variant="secondary" type="button">
+                <Button variant="ghost" type="button">
                   Cancel
                 </Button>
               </DialogClose>
