@@ -19,7 +19,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         <Separator className="mb-1.5" />
         <NavigationBar links={navigationLinks} />
       </div>
-      <div className="pl-10 pr-10 pt-5">{children}</div>
+      <div className="pl-10 pr-10 pt-5 w-full">{children}</div>
     </main>
   );
 };
