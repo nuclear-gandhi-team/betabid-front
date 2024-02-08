@@ -12,9 +12,9 @@ const Star = ({ isSaved, toggleSave }: StarProps) => (
     aria-label={isSaved ? "Remove from saved" : "Save"}
   >
     {isSaved ? (
-      <StarFilledIcon className="h-7 w-7 text-yellow-200" />
+      <StarFilledIcon className="h-7 w-7 text-yellow-400" />
     ) : (
-      <StarIcon className="h-7 w-7 text-yellow-200" />
+      <StarIcon className="h-7 w-7 text-gray-400" />
     )}
   </button>
 );
