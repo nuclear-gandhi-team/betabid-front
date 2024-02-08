@@ -1,4 +1,4 @@
-import LotCard from "@/components/modules/lot-card";
+import LotCard from "@/components/modules/lot-card/lot-card";
 import PageTitle from "@/components/modules/page-title";
 
 const Page = () => (
@@ -7,6 +7,7 @@ const Page = () => (
     <LotCard
       title="ggg"
       imageSrc="/chair.jpeg"
+      description="sdfvfd"
       status="preparing"
       isSaved={false}
       currentPrice={215.0}
