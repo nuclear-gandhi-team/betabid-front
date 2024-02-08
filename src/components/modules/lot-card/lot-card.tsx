@@ -2,6 +2,9 @@
 import { useState } from "react";
 import Image from "next/image";
 
+import { Star } from "@/components/modules/lot-card/star";
+import { Status } from "@/components/modules/lot-card/status";
+import { TagsList } from "@/components/modules/lot-card/tags";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -12,9 +15,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Star } from "@/components/ui/star";
-import { Status } from "@/components/ui/status";
-import { TagsList } from "@/components/ui/tags";
 
 export interface LotCardProps {
   title: string;
@@ -68,13 +68,11 @@ const LotCard = ({
             </CardDescription>
           </div>
         </CardHeader>
-
         <CardContent className="p-1">
           <CardDescription className="h-[80px] text-wrap truncate line-clamp-4">
             {description}
           </CardDescription>
         </CardContent>
-
         <CardFooter className="p-1 pt-1.5">
           <Badge variant="outline" className="text-sm">
             <p className="font-normal">Current bid</p>
