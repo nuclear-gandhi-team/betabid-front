@@ -33,8 +33,8 @@ const CreateSchema = z.object({
   tag: z.string().min(1),
   startDate: z.date(),
   deadline: z.date(),
-  currentPrice: z.number().min(1),
-  step: z.number().min(1),
+  currentPrice: z.string().min(1),
+  step: z.string().min(1),
 });
 
 const Page = () => {
@@ -124,9 +124,9 @@ const Page = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="m@example.com">Antique</SelectItem>
-                    <SelectItem value="m@google.com">Tech</SelectItem>
-                    <SelectItem value="m@support.com">Other</SelectItem>
+                    <SelectItem value="antique">Antique</SelectItem>
+                    <SelectItem value="tech">Tech</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormDescription>
@@ -181,6 +181,7 @@ const Page = () => {
                   <DatePickerForm
                     value={field.value}
                     onChange={field.onChange}
+                    disabled={(date) => date < new Date()}
                   />
                   <FormDescription>
                     This is a start date for your lot.
@@ -197,6 +198,7 @@ const Page = () => {
                   <DatePickerForm
                     value={field.value}
                     onChange={field.onChange}
+                    disabled={(date) => date <= new Date()}
                   />
                   <FormDescription>
                     This is the last date for your lot.
