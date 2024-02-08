@@ -62,10 +62,10 @@ const LotCard = ({
               </CardTitle>
               <TagsList tags={tags}></TagsList>
             </div>
-            <CardDescription className="flex flex-row h-[30px] justify-between w-[12%] mr-1">
+            <div className="flex flex-row h-[30px] justify-between w-[12%] mr-1 text-sm text-muted-foreground">
               <Status>{status}</Status>
               <Star isSaved={isSavedLot} toggleSave={toggleSave}></Star>
-            </CardDescription>
+            </div>
           </div>
         </CardHeader>
         <CardContent className="p-1">
@@ -73,7 +73,7 @@ const LotCard = ({
             {description}
           </CardDescription>
         </CardContent>
-        <CardFooter className="p-1 pt-1.5">
+        <CardFooter className="justify-start p-1 pt-1.5">
           <Badge variant="outline" className="text-sm">
             <p className="font-normal">Current bid</p>
             {`: ${currentPrice}$`}
