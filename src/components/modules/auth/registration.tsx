@@ -62,7 +62,11 @@ const RegistrationModal = () => {
             <FormItem>
               <FormLabel color="black">Email</FormLabel>
               <FormControl>
-                <Input placeholder="yourmail@example.com" {...field} />
+                <Input
+                  type="email"
+                  placeholder="yourmail@example.com"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -75,7 +79,7 @@ const RegistrationModal = () => {
             <FormItem>
               <FormLabel color="black">Password</FormLabel>
               <FormControl>
-                <Input placeholder="••••••••••" {...field} />
+                <Input type="password" placeholder="••••••••••" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -88,7 +92,7 @@ const RegistrationModal = () => {
             <FormItem>
               <FormLabel color="black">Confirm password</FormLabel>
               <FormControl>
-                <Input placeholder="••••••••••" {...field} />
+                <Input type="password" placeholder="••••••••••" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
