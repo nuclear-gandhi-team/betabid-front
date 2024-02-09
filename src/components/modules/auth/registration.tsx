@@ -10,6 +10,7 @@ import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -42,13 +43,15 @@ const RegistrationModal = () => {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg" color="black">
-                Username
-              </FormLabel>
+              <FormLabel color="black">Username</FormLabel>
               <FormControl>
-                <Input placeholder="Enter username" {...field} />
+                <Input placeholder="Hjyup" {...field} />
               </FormControl>
               <FormMessage />
+              <FormDescription>
+                Your username will be also displayed for a public. You can add
+                public name in the settings to change this behavior.
+              </FormDescription>
             </FormItem>
           )}
         />
@@ -57,9 +60,7 @@ const RegistrationModal = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg" color="black">
-                Email
-              </FormLabel>
+              <FormLabel color="black">Email</FormLabel>
               <FormControl>
                 <Input placeholder="yourmail@example.com" {...field} />
               </FormControl>
@@ -72,9 +73,7 @@ const RegistrationModal = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg" color="black">
-                Password
-              </FormLabel>
+              <FormLabel color="black">Password</FormLabel>
               <FormControl>
                 <Input placeholder="Enter password" {...field} />
               </FormControl>
@@ -87,9 +86,7 @@ const RegistrationModal = () => {
           name="passwordConfirmation"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg" color="black">
-                Confirm password
-              </FormLabel>
+              <FormLabel color="black">Confirm password</FormLabel>
               <FormControl>
                 <Input placeholder="Confirm your password" {...field} />
               </FormControl>

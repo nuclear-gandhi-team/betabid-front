@@ -10,6 +10,7 @@ import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -40,13 +41,14 @@ const LoginModal = () => {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg" color="black">
-                Username
-              </FormLabel>
+              <FormLabel color="black">Username</FormLabel>
               <FormControl>
-                <Input placeholder="Enter username" {...field} />
+                <Input placeholder="Hjyup" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormDescription>
+                This is your username that you used for registration (not a
+                public name).
+              </FormDescription>
             </FormItem>
           )}
         />
@@ -55,11 +57,9 @@ const LoginModal = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg" color="black">
-                Password
-              </FormLabel>
+              <FormLabel color="black">Password</FormLabel>
               <FormControl>
-                <Input placeholder="Enter password" {...field} />
+                <Input type="password" placeholder="••••••••••" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
