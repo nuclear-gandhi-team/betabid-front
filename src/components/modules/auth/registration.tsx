@@ -75,7 +75,7 @@ const RegistrationModal = () => {
             <FormItem>
               <FormLabel color="black">Password</FormLabel>
               <FormControl>
-                <Input placeholder="Enter password" {...field} />
+                <Input placeholder="••••••••••" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -88,7 +88,7 @@ const RegistrationModal = () => {
             <FormItem>
               <FormLabel color="black">Confirm password</FormLabel>
               <FormControl>
-                <Input placeholder="Confirm your password" {...field} />
+                <Input placeholder="••••••••••" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
