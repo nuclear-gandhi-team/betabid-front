@@ -65,7 +65,7 @@ const Page = () => {
               <FormItem>
                 <FormLabel color="black">Title</FormLabel>
                 <FormControl>
-                  <Input placeholder={"Antique chair"} {...field} />
+                  <Input placeholder="Antique chair" {...field} />
                 </FormControl>
                 <FormDescription>
                   This is a public display title for your lot. People will see
