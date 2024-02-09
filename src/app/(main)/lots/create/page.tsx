@@ -145,7 +145,7 @@ const Page = () => {
                 <FormItem>
                   <FormLabel color="black">Current Price</FormLabel>
                   <FormControl>
-                    <Input placeholder={"2500"} {...field} />
+                    <Input placeholder="2500" {...field} />
                   </FormControl>
                   <FormDescription>
                     This is a current price for your lot. Your lot will start at
