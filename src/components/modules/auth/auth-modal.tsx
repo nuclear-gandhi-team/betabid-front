@@ -3,7 +3,14 @@
 import Login from "@/components/modules/auth/login";
 import Registration from "@/components/modules/auth/registration";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const AuthModal = () => {
@@ -15,8 +22,14 @@ const AuthModal = () => {
         </Button>
       </DialogTrigger>
       <DialogContent>
+        <DialogHeader className="p-0">
+          <DialogTitle>Account</DialogTitle>
+          <DialogDescription>
+            Manage your account login and registration here.
+          </DialogDescription>
+        </DialogHeader>
         <Tabs defaultValue="overview">
-          <div className="flex justify-between w-full pt-5 pb-5">
+          <div className="flex justify-between w-full ">
             <TabsList className="w-full">
               <TabsTrigger className="w-full" value="login">
                 Login
