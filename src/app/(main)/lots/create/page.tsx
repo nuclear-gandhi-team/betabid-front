@@ -82,9 +82,7 @@ const Page = () => {
                 <FormLabel color="black">Description</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder={
-                      "A beautiful chair that has been found in 1989..."
-                    }
+                    placeholder="A beautiful chair that has been found in 1989..."
                     {...field}
                   />
                 </FormControl>
@@ -161,7 +159,7 @@ const Page = () => {
                 <FormItem>
                   <FormLabel color="black">Step</FormLabel>
                   <FormControl>
-                    <Input placeholder={"500"} {...field} />
+                    <Input placeholder="500" {...field} />
                   </FormControl>
                   <FormDescription>
                     This is minimal step for your lot. People have to bit at
