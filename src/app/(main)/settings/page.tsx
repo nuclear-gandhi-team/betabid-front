@@ -18,10 +18,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
-export interface SettingsProps {
-  publicName: string;
-  email: string;
-}
 const SettingsPasswordSchema = z.object({
   currentPassword: z
     .string()
@@ -36,7 +32,7 @@ const SettingsNamedSchema = z.object({
   publicName: z.string().min(1),
 });
 
-const Page = ({ publicName = "kkk", email = "e@f" }: SettingsProps) => {
+const Page = () => {
   const formPassword = useForm<z.infer<typeof SettingsPasswordSchema>>({
     resolver: zodResolver(SettingsPasswordSchema),
   });
@@ -146,7 +142,7 @@ const Page = ({ publicName = "kkk", email = "e@f" }: SettingsProps) => {
                 <FormDescription>
                   The public name will be shown to all users. By default, the
                   public name is the same as the user name. Your current public
-                  name is <span className="font-bold">{publicName}</span>
+                  name is <span className="font-bold">Public Name</span>
                 </FormDescription>
               </FormItem>
             )}
@@ -167,7 +163,7 @@ const Page = ({ publicName = "kkk", email = "e@f" }: SettingsProps) => {
                 </FormControl>
                 <FormDescription>
                   Your current email is{" "}
-                  <span className="font-bold">{email}</span>
+                  <span className="font-bold">password</span>
                 </FormDescription>
               </FormItem>
             )}
