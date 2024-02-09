@@ -62,7 +62,11 @@ const RegistrationModal = () => {
             <FormItem>
               <FormLabel color="black">Email</FormLabel>
               <FormControl>
-                <Input placeholder="yourmail@example.com" {...field} />
+                <Input
+                  type="email"
+                  placeholder="yourmail@example.com"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
