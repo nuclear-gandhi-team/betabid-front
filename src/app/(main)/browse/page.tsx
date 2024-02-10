@@ -1,3 +1,4 @@
+import CardSkeleton from "@/components/modules/card-skeleton";
 import { DataTableToolbar } from "@/components/modules/filters/toolbar";
 import LotCard from "@/components/modules/lot-card/lot-card";
 import PageTitle from "@/components/modules/page-title";
@@ -14,6 +15,10 @@ const Page = () => (
   <div className="flex flex-col gap-y-7 pb-4">
     <PageTitle title="Browse" description="Here you can find new lots" />
     <DataTableToolbar />
+    <CardSkeleton />
+    <CardSkeleton />
+    <CardSkeleton />
+
     <LotCard
       title="3,300-Mile 2007 Porsche 911 GT3 RS" //data:image/png;base64,
       imageSrc="/chair.jpeg"
