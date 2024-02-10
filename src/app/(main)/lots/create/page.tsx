@@ -135,7 +135,7 @@ const Page = () => {
               </FormItem>
             )}
           />
-          <div className="flex gap-5">
+          <div className="flex gap-5 flex-col md:flex-row">
             <FormField
               control={form.control}
               name="currentPrice"
@@ -169,7 +169,7 @@ const Page = () => {
               )}
             />
           </div>
-          <div className="flex gap-5">
+          <div className="flex gap-5 flex-col md:flex-row">
             <FormField
               control={form.control}
               name="startDate"

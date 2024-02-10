@@ -68,75 +68,11 @@ const Page = () => {
         title="Settings"
         description="Here you can manage your account settings"
       />
-      <Form {...formPassword}>
-        <form
-          onSubmit={formPassword.handleSubmit(handleSubmitPassword)}
-          className="space-y-4 mx-6 mt-4 mb-8"
-        >
-          <FormLabel className="text-xl -mx-2">Security</FormLabel>
-          <Separator className="w-2/12 -mx-2" />
-          <FormField
-            control={formPassword.control}
-            name="currentPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel color="black">Current password</FormLabel>
-                <FormControl>
-                  <Input
-                    className="w-2/3 min-w-[250px]"
-                    type="password"
-                    placeholder="••••••••••"
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={formPassword.control}
-            name="newPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel color="black">New password</FormLabel>
-                <FormControl>
-                  <Input
-                    className="w-2/3 min-w-[250px]"
-                    type="password"
-                    placeholder="•••••••••••••••"
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={formPassword.control}
-            name="passwordConfirmation"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel color="black">Confirm new password</FormLabel>
-                <FormControl>
-                  <Input
-                    className="w-2/3 min-w-[250px] "
-                    type="password"
-                    placeholder="•••••••••••••••"
-                    {...field}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <Button type="submit">Update</Button>
-        </form>
-      </Form>
-
       <Form {...formName}>
         <form
           onSubmit={formName.handleSubmit(handleSubmitName)}
-          className="space-y-4 mx-6 mt-4"
+          className="space-y-4 mt-4"
         >
-          <FormLabel className="text-xl -mx-2">Public name and email</FormLabel>
-          <Separator className="w-2/12 -mx-2" />
           <FormField
             control={formName.control}
             name="publicName"
@@ -144,11 +80,7 @@ const Page = () => {
               <FormItem>
                 <FormLabel color="black">New public name</FormLabel>
                 <FormControl>
-                  <Input
-                    className="w-2/3 min-w-[250px]"
-                    placeholder="Dima"
-                    {...field}
-                  />
+                  <Input className="md:w-2/3" placeholder="Dima" {...field} />
                 </FormControl>
                 <FormDescription>
                   The public name will be shown to all users. By default, the
@@ -166,7 +98,7 @@ const Page = () => {
                 <FormLabel color="black">New email</FormLabel>
                 <FormControl>
                   <Input
-                    className="w-2/3 min-w-[250px]"
+                    className="md:w-2/3"
                     type="email"
                     placeholder="example@email.com"
                     {...field}
@@ -179,27 +111,98 @@ const Page = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Save</Button>
+          <Button type="submit" className="w-full md:w-fit">
+            Save
+          </Button>
         </form>
       </Form>
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button>Delete account</Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Yes, delete my account</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <Separator className="space-y-4 mt-4 mb-4 md:w-2/3" />
+      <Form {...formPassword}>
+        <form
+          onSubmit={formPassword.handleSubmit(handleSubmitPassword)}
+          className="space-y-4 mt-4 mb-8"
+        >
+          <FormField
+            control={formPassword.control}
+            name="currentPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel color="black">Current password</FormLabel>
+                <FormControl>
+                  <Input
+                    className="md:w-2/3"
+                    type="password"
+                    placeholder="••••••••••"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>
+                  You cannot use the same password twice
+                </FormDescription>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={formPassword.control}
+            name="newPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel color="black">New password</FormLabel>
+                <FormControl>
+                  <Input
+                    className="md:w-2/3"
+                    type="password"
+                    placeholder="•••••••••••••••"
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={formPassword.control}
+            name="passwordConfirmation"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel color="black">Confirm new password</FormLabel>
+                <FormControl>
+                  <Input
+                    className="md:w-2/3"
+                    type="password"
+                    placeholder="•••••••••••••••"
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="w-full md:w-fit">
+            Update
+          </Button>
+        </form>
+      </Form>
+      <div className="pt-10">
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="ghost" className="w-full md:w-fit">
+              Delete account
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Yes, delete my account</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
     </div>
   );
 };

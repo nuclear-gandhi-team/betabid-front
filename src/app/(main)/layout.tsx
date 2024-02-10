@@ -9,8 +9,8 @@ import { navigationLinks } from "@/lib/const/navigation-links";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <main className="min-h-screen bg-background flex">
-      <div className="w-12 min-h-screen border-r">
+    <main className="min-h-screen bg-background flex flex-col md:flex-row">
+      <div className="border-r border-b md:w-12 md:min-h-screen md:border-b-0">
         <div className="p-3 flex justify-center">
           <Avatar className="h-7 w-7">
             <AvatarFallback>Hj</AvatarFallback>
