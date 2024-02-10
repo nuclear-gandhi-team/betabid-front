@@ -3,6 +3,7 @@
 import useGetAllLots from "@/api/hooks/query/useGetAllLots";
 import { DataTableToolbar } from "@/components/modules/filters/toolbar";
 import PageTitle from "@/components/modules/page-title";
+import { SkeletonPage } from "@/components/modules/skeletons/skeleton-page";
 import {
   Pagination,
   PaginationContent,
@@ -16,7 +17,7 @@ const Page = () => {
   const [data, isLoading] = useGetAllLots({});
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <SkeletonPage />;
   }
 
   console.log(data);

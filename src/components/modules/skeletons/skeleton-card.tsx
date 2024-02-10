@@ -10,7 +10,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const CardSkeleton = () => (
+const SkeletonCard = () => (
   <Card className="flex flex-row items-center min-h-[222px] w-[90vw] shadow-[rgba(149,157,165,0.2)_0px_8px_24px] overflow-auto">
     <div className="flex justify-center h-[200px] w-full max-w-[23%] mx-3">
       <Skeleton className="w-11/12 h-[200px]" />
@@ -48,4 +48,4 @@ const CardSkeleton = () => (
   </Card>
 );
 
-export default CardSkeleton;
+export default SkeletonCard;
