@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { buttonVariants } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
   TooltipContent,
@@ -22,7 +21,7 @@ const Nav = ({ links }: NavProps) => {
   const pathname = `..${usePathname()}`;
   return (
     <div className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2">
-      <nav className="flex gap-1 flex-col items-center">
+      <nav className="flex gap-3 flex-row md:gap-1 md:flex-col items-center justify-center">
         <TooltipProvider>
           {links.map((link, index) => (
             <>
@@ -54,7 +53,6 @@ const Nav = ({ links }: NavProps) => {
                   )}
                 </TooltipContent>
               </Tooltip>
-              {link.hasSeparator && <Separator className="mt-1.5 mb-1.5" />}
             </>
           ))}
         </TooltipProvider>
