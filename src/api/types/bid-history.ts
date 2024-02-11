@@ -1,7 +1,7 @@
-export type BidHistory = {
+export type BidHistoryItem = {
   id: number;
+  userId: string;
+  userName: string;
   amount: number;
-  username: string;
-  time: Date;
-  userEmail: string;
+  time: string;
 };

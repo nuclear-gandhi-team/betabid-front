@@ -1,11 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useQueryClient } from "react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { HandCoins } from "lucide-react";
-import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 
+import useMakeBet from "@/api/hooks/mutation/useMakeBet";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -31,26 +34,39 @@ import { Input } from "@/components/ui/input";
 export interface BetModalProps {
   minStep: number;
   currentPrice: number;
+  lotId: number;
 }
 
-const BetModalSchema = z.object({
-  rate: z.string().min(1, { message: "Rate is required" }),
-});
+const BetModal = ({ currentPrice, minStep, lotId }: BetModalProps) => {
+  const BetModalSchema = z.object({
+    rate: z.string().min(1, { message: "Rate is required" }),
+  });
 
-const BetModal = ({ currentPrice, minStep }: BetModalProps) => {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { mutate: bet } = useMakeBet({
+    onSuccessfulCallback: () => {
+      queryClient.invalidateQueries({ queryKey: ["lot", lotId] });
+      router.refresh();
+    },
+  });
   const form = useForm<z.infer<typeof BetModalSchema>>({
     resolver: zodResolver(BetModalSchema),
   });
 
   const handleSubmit = (data: z.infer<typeof BetModalSchema>) => {
-    toast("We submitted the new rate!");
-    console.log(data);
+    bet({ amount: parseInt(data.rate), lotId: lotId });
+    setOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={open}>
       <DialogTrigger asChild>
-        <Button className="h-9 items-center justify-center rounded-lg">
+        <Button
+          className="h-9 items-center justify-center rounded-lg w-full md:w-fit"
+          onClick={() => setOpen(true)}
+        >
           <HandCoins className="h-5 mr-2" />
           Bid
         </Button>
@@ -86,7 +102,11 @@ const BetModal = ({ currentPrice, minStep }: BetModalProps) => {
             />
             <DialogFooter className="gap-3 sm:gap-0">
               <DialogClose asChild>
-                <Button variant="ghost" type="button">
+                <Button
+                  variant="ghost"
+                  type="button"
+                  onClick={() => setOpen(false)}
+                >
                   Cancel
                 </Button>
               </DialogClose>

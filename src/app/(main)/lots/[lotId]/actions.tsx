@@ -5,8 +5,12 @@ import {
   UserIcon,
 } from "lucide-react";
 
+import { BidHistoryItem } from "@/api/types/bid-history";
+import { Lot } from "@/api/types/lot";
 import LotActionCard from "@/components/modules/lot-action-card";
-import RateChangesGraph from "@/components/modules/rate-changes-graph";
+import RateChangesGraph, {
+  GraphItem,
+} from "@/components/modules/rate-changes-graph";
 import RateHistoryList from "@/components/modules/rate-history/rate-hirstory-list";
 import RateHistory from "@/components/modules/rate-history/rate-history";
 import {
@@ -16,74 +20,76 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { temporary_data } from "@/lib/const/graph-data";
+import { formatDate, formatDateAndTime } from "@/lib/utils";
 
-const Actions = () => {
-  //TODO: Replace with real data
-  const rateHistories = Array.from({ length: 10 }, (_, index) => ({
-    name: `Jeremy ${index + 1}`,
-    email: `jeremy${index + 1}@gmail.com`,
-    price: `$32,450.00`, // This can be varied as needed
-  }));
+const Actions = ({ lot }: { lot: Lot }) => {
+  const rateChangesData: GraphItem[] = lot.bidHistory.map(
+    (item: BidHistoryItem) => ({
+      amount: item.amount,
+      time: formatDateAndTime(item.time),
+    }),
+  );
 
   return (
     <div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <LotActionCard
           title="Current Price"
-          description="Started price was $34,000.00"
+          description={`Started price was ${lot.startPrice}`}
           icon={<BadgeDollarSignIcon />}
         >
-          $45,231.00
+          {lot.currentPrice}
         </LotActionCard>
         <LotActionCard
           title="Min Step"
-          description="The next bid should be at least $50,231.00"
+          description={`The next bid should be at least $${lot.minNextPrice}`}
           icon={<MoveUpRightIcon />}
         >
-          $5,000.00
+          {lot.minBetStep}
         </LotActionCard>
         <LotActionCard
           title="Active Players"
-          description="45 bids from 23 players"
+          description={`${lot.activeBetsCount} bids from ${lot.activeUsersCount} players`}
           icon={<UserIcon />}
         >
-          23
+          {lot.activeUsersCount}
         </LotActionCard>
-        <LotActionCard
-          title="Deadline"
-          description="Only 3 days left to bid"
-          icon={<CalendarFoldIcon />}
-        >
-          26 April 2024
+        <LotActionCard title="Deadline" icon={<CalendarFoldIcon />}>
+          {formatDate(lot.deadline)}
         </LotActionCard>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7 pt-4">
-        <Card className="col-span-4">
+        <Card className="col-span-4 min-h-[420px]">
           <CardHeader>
             <CardTitle>Rate changes</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <RateChangesGraph data={temporary_data} />
+            <RateChangesGraph data={rateChangesData} />
           </CardContent>
         </Card>
         <Card className="md:col-span-3 col-span-4">
           <CardHeader>
             <CardTitle>Rate history</CardTitle>
             <CardDescription>
-              This lot had 45 bids for the whole time.
+              This lot had {lot.activeBetsCount} bids for the whole time.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <RateHistoryList>
-              {rateHistories.map((rateHistory, index) => (
-                <RateHistory
-                  key={index}
-                  name={rateHistory.name}
-                  email={rateHistory.email}
-                  price={rateHistory.price}
-                />
-              ))}
+              {lot.bidHistory.length == 0 ? (
+                <div className="mt-12 flex justify-center items-center text-muted-foreground">
+                  No data
+                </div>
+              ) : (
+                lot.bidHistory.map((rateHistory, index) => (
+                  <RateHistory
+                    key={index}
+                    name={rateHistory.userName}
+                    time={formatDateAndTime(rateHistory.time)}
+                    price={`${rateHistory.amount}$`}
+                  />
+                ))
+              )}
             </RateHistoryList>
           </CardContent>
         </Card>

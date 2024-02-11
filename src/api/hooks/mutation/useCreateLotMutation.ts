@@ -17,14 +17,13 @@ const useCreateLotMutation = ({
     FormData
   >((lotData: FormData) => Lots.createLot(lotData), {
     onSuccess: (data: CreateLotResponse) => {
-      console.log(data);
       toast("Lot created");
       if (onSuccessfulCallback) {
         onSuccessfulCallback(data.lotId);
       }
     },
-    onError: (error) => {
-      toast(`Failed to create lot: ${error.message}`);
+    onError: () => {
+      toast("Failed to create lot");
     },
   });
 

@@ -1,13 +1,15 @@
-const LotTitle = ({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) => (
+import { Badge } from "@/components/ui/badge";
+
+const LotTitle = ({ title, tags }: { title: string; tags: string[] }) => (
   <div>
     <h2 className="text-3xl font-semibold tracking-tight">{title}</h2>
-    <p className="text-muted-foreground text-sm">{description}</p>
+    <div className="flex gap-1 pt-2">
+      {tags.map((tag, index) => (
+        <Badge key={index} variant="secondary">
+          {tag}
+        </Badge>
+      ))}
+    </div>
   </div>
 );
 

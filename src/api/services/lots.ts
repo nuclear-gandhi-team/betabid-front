@@ -7,9 +7,10 @@ export class Lots {
   };
 
   static getLot = async (id: string) => {
-    const response = await axiosInstance.get(`/lots/${id}`);
+    const response = await axiosInstance.get(`/lots/get/${id}`);
     return response.data;
   };
+
   static getAllLots = async ({ ...rest }) => {
     const response = await axiosInstance.get("/lots/get-all", {
       params: { ...rest },
