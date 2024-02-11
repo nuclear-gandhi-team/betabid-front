@@ -1,6 +1,7 @@
 "use client";
 
 import useGetAllLots from "@/api/hooks/query/useGetAllLots";
+import AuthModal from "@/components/modules/auth/auth-modal";
 import { DataTableToolbar } from "@/components/modules/filters/toolbar";
 import PageTitle from "@/components/modules/page-title";
 import { SkeletonPage } from "@/components/modules/skeletons/skeleton-page";
@@ -26,6 +27,7 @@ const Page = () => {
     <div className="flex flex-col gap-y-7 pb-4">
       <PageTitle title="Browse" description="Here you can find new lots" />
       <DataTableToolbar />
+      <AuthModal />
       <Pagination>
         <PaginationContent>
           <PaginationItem>

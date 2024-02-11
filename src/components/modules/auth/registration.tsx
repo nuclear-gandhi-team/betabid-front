@@ -2,9 +2,9 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
 import { z } from "zod";
 
+import useRegister from "@/api/hooks/query/useRegister";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
@@ -30,9 +30,15 @@ const RegistrationModal = () => {
     resolver: zodResolver(RegistrationSchema),
   });
 
+  const { mutate: credentials } = useRegister();
+
   const handleSubmit = (data: z.infer<typeof RegistrationSchema>) => {
-    toast("Account was created!");
-    console.log(data);
+    credentials({
+      login: data.username,
+      email: data.email,
+      password: data.password,
+      confirmPassword: data.passwordConfirmation,
+    });
   };
 
   return (

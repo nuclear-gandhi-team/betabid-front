@@ -2,9 +2,9 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
 import { z } from "zod";
 
+import useLogin from "@/api/hooks/query/useLogin";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
@@ -28,9 +28,10 @@ const LoginModal = () => {
     resolver: zodResolver(LoginSchema),
   });
 
+  const { mutate: credentials } = useLogin();
+
   const handleSubmit = (data: z.infer<typeof LoginSchema>) => {
-    toast("You are logged in!");
-    console.log(data);
+    credentials({ login: data.username, password: data.password });
   };
 
   return (
