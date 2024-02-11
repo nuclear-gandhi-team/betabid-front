@@ -26,7 +26,7 @@ const statusIcons: StatusIcons = {
   Finished: XCircle,
 };
 interface DataTableToolbarProps {
-  onNameFilterChange: (value: string) => void;
+  onNameFilterChange?: (value: string) => void;
 }
 
 export function DataTableToolbar({
@@ -46,10 +46,12 @@ export function DataTableToolbar({
       icon: statusIcons[status.name],
     })) || [];
   const handleChange = (e: any) => {
-    // Создаем новый таймер
     setTimeout(() => {
+      if (!onNameFilterChange) {
+        return;
+      }
       onNameFilterChange(e.target.value);
-    }, 2000); // Задержка в 2000 мс (2 секунды)
+    }, 2000);
   };
 
   return (

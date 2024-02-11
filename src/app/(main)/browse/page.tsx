@@ -34,7 +34,7 @@ const Page = () => {
     return (
       <div>
         <PageTitle title="Browse" description="Here you can find new lots" />
-        <DataTableToolbar onNameFilterChange={setNameStartsWith} />
+        <DataTableToolbar />
         <NotFound />
       </div>
     );
