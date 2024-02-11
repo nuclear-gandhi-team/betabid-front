@@ -16,11 +16,11 @@ import {
 const Page = () => {
   const [data, isLoading] = useAllLotsQuery({});
 
+  console.log(data);
+
   if (isLoading) {
     return <SkeletonPage />;
   }
-
-  console.log(data);
 
   return (
     <div className="flex flex-col gap-y-7 pb-4">

@@ -1,3 +1,6 @@
+import Image from "next/image";
+
+import { Lot } from "@/api/types/lot";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -7,16 +10,20 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-const Overview = () => (
-  //TODO: Add description and separate into modules
-  <div className="flex justify-center">
+const Overview = ({ lot }: { lot: Lot }) => (
+  <div className="flex justify-center flex-col items-center gap-3">
     <Carousel className="w-full max-w-md">
       <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {lot.images.map((image, index) => (
           <CarouselItem key={index}>
             <Card>
-              <CardContent className="flex aspect-square items-center justify-center p-6">
-                <span className="text-4xl font-semibold">{index + 1}</span>
+              <CardContent className="flex justify-center items-center">
+                <Image
+                  src={"data:image/png;base64," + image}
+                  alt={lot.title}
+                  width={300}
+                  height={300}
+                />
               </CardContent>
             </Card>
           </CarouselItem>
@@ -27,6 +34,9 @@ const Overview = () => (
         <CarouselNext />
       </div>
     </Carousel>
+    <div className="text-muted-foreground w-2/3 text-center text-lg">
+      {lot.description}
+    </div>
   </div>
 );
 
