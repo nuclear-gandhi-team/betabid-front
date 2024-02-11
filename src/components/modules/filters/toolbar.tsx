@@ -25,11 +25,19 @@ const statusIcons: StatusIcons = {
   Open: CheckCircle2,
   Finished: XCircle,
 };
+interface DataTableToolbarProps {
+  onNameFilterChange: (value: string) => void;
+  onTagFilterChange: (selectedOptions: string[]) => void;
+  onStatusFilterChange: (selectedOption: string) => void;
+}
 
-export function DataTableToolbar() {
+export function DataTableToolbar({
+  onNameFilterChange,
+  onTagFilterChange,
+  onStatusFilterChange,
+}: DataTableToolbarProps) {
   const [dataTags] = useTagsQuery({});
   const [dataStatuses] = useStatusesQuery({});
-
   const tags =
     dataTags?.map((tag) => ({
       value: tag.id.toString(),
@@ -41,6 +49,12 @@ export function DataTableToolbar() {
       label: status.name,
       icon: statusIcons[status.name],
     })) || [];
+  const handleChange = (e: any) => {
+    // Создаем новый таймер
+    setTimeout(() => {
+      onNameFilterChange(e.target.value);
+    }, 2000); // Задержка в 2000 мс (2 секунды)
+  };
 
   return (
     <div className="flex justify-between mx-4">
@@ -49,9 +63,18 @@ export function DataTableToolbar() {
           <Input
             placeholder="Filter lots..."
             className="h-8 w-[150px] lg:w-[250px]"
+            onChange={handleChange}
           />
-          <DataTableFacetedFilter title="Tag" options={tags} />
-          <DataTableFacetedFilter title="Status" options={statuses} />
+          <DataTableFacetedFilter
+            title="Tag"
+            options={tags}
+            onChange={onTagFilterChange}
+          />
+          <DataTableFacetedFilter
+            title="Status"
+            options={statuses}
+            onChange={[onStatusFilterChange]}
+          />
           <Button variant="ghost">
             Price
             <ArrowUpDown className="ml-2 h-4 w-4" />

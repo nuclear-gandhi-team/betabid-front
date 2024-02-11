@@ -1,5 +1,14 @@
 import axiosInstance from "@/api/axios-wrapper";
-
+import { AllLots } from "@/api/types/all-lot";
+interface AllLotsQueryParams {
+  onSuccessCallback?: (data: AllLots) => void;
+  NameStartsWith?: string;
+  PriceOrder?: 0 | 1;
+  Tags?: string[];
+  Status?: 0 | 1 | 2;
+  Page?: number;
+  PageCount?: number;
+}
 export class Lots {
   static createLot = async (data: FormData) => {
     const response = await axiosInstance.post("/lots/create", data);
@@ -11,9 +20,9 @@ export class Lots {
     return response.data;
   };
 
-  static getAllLots = async ({ ...rest }) => {
+  static getAllLots = async (params: AllLotsQueryParams) => {
     const response = await axiosInstance.get("/lots/get-all", {
-      params: { ...rest },
+      params,
     });
     return response.data;
   };

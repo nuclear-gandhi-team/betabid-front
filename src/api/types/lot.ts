@@ -5,7 +5,7 @@ export type Lot = {
   title: string;
   images: string[];
   tags: string[];
-  status: "Active" | "Inactive" | "Closed";
+  status: "preparing" | "open" | "finished";
   description: string;
   dateStarted: string;
   deadline: string;

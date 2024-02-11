@@ -15,11 +15,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { formatDate } from "@/lib/utils";
 
 export interface LotCardProps {
   title: string;
   imageSrc: string;
-  status: "preparing" | "active" | "ended";
+  status: "preparing" | "open" | "finished";
   isSaved: boolean;
   description: string;
   currentPrice: number;
@@ -81,7 +82,7 @@ const LotCard = ({
               orientation="vertical"
               className="h-[10px] w-[1px] text-foreground mx-1.5"
             />
-            {deadline}
+            {formatDate(deadline)}
           </Badge>
         </CardFooter>
       </div>
