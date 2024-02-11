@@ -1,20 +1,19 @@
 import { Lot } from "@/api/types/lot";
 
-export type AllLot = Pick<
+export type LotCard = Pick<
   Lot,
   | "id"
   | "title"
   | "deadline"
   | "currentPrice"
   | "description"
+  | "tags"
   | "status"
   | "isSaved"
-  | "images"
-  | "tags"
->;
+> & { image: string };
 
 export type AllLots = {
-  lots: AllLot[];
+  lots: LotCard[];
   totalPages: number;
   currentPage: number;
 };

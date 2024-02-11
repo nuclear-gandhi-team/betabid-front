@@ -4,82 +4,44 @@ import {
   ArrowUpDown,
   CheckCircle2,
   ClockIcon,
+  LucideIcon,
   Pencil,
   XCircle,
 } from "lucide-react";
 import Link from "next/link";
 
+import useStatusesQuery from "@/api/hooks/query/useStatusesQuery";
+import useTagsQuery from "@/api/hooks/query/useTagsQuery";
 import { DataTableFacetedFilter } from "@/components/modules/filters/filter";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-export const tags = [
-  {
-    value: "rare",
-    label: "Rare Collectible",
-  },
-  {
-    value: "luxury",
-    label: "Luxury Experience",
-  },
-  {
-    value: "vintage",
-    label: "Vintage Treasure",
-  },
-  {
-    value: "art",
-    label: "Fine Art",
-  },
-  {
-    value: "exclusive",
-    label: "Exclusive Getaway",
-  },
-  {
-    value: "handcrafted",
-    label: "Handcrafted Goods",
-  },
-  {
-    value: "memorabilia",
-    label: "Signed Memorabilia",
-  },
-  {
-    value: "gourmet",
-    label: "Gourmet Delights",
-  },
-  {
-    value: "technological",
-    label: "Technological Marvel",
-  },
-  {
-    value: "historical",
-    label: "Historical Artifact",
-  },
-  {
-    value: "other",
-    label: "Other",
-  },
-];
-
-export const statuses = [
-  {
-    label: "Active",
-    value: "active",
-    icon: CheckCircle2,
-  },
-  {
-    label: "Preparing",
-    value: "preparing",
-    icon: ClockIcon,
-  },
-  {
-    label: "Ended",
-    value: "ended",
-    icon: XCircle,
-  },
-];
+interface StatusIcons {
+  [key: string]: LucideIcon;
+}
+const statusIcons: StatusIcons = {
+  Preparing: ClockIcon,
+  Open: CheckCircle2,
+  Finished: XCircle,
+};
 
 export function DataTableToolbar() {
+  const [dataTags] = useTagsQuery({});
+  const [dataStatuses] = useStatusesQuery({});
+
+  const tags =
+    dataTags?.map((tag) => ({
+      value: tag.id.toString(),
+      label: tag.name,
+    })) || [];
+  const statuses =
+    dataStatuses?.map((status) => ({
+      value: status.name,
+      label: status.name,
+      icon: statusIcons[status.name],
+    })) || [];
+
   return (
     <div className="flex justify-between mx-4">
       <div className="flex items-center justify-between">
