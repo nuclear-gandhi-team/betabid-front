@@ -27,14 +27,10 @@ const statusIcons: StatusIcons = {
 };
 interface DataTableToolbarProps {
   onNameFilterChange: (value: string) => void;
-  onTagFilterChange: (selectedOptions: string[]) => void;
-  onStatusFilterChange: (selectedOption: string) => void;
 }
 
 export function DataTableToolbar({
   onNameFilterChange,
-  onTagFilterChange,
-  onStatusFilterChange,
 }: DataTableToolbarProps) {
   const [dataTags] = useTagsQuery({});
   const [dataStatuses] = useStatusesQuery({});
@@ -65,16 +61,8 @@ export function DataTableToolbar({
             className="h-8 w-[150px] lg:w-[250px]"
             onChange={handleChange}
           />
-          <DataTableFacetedFilter
-            title="Tag"
-            options={tags}
-            onChange={onTagFilterChange}
-          />
-          <DataTableFacetedFilter
-            title="Status"
-            options={statuses}
-            onChange={[onStatusFilterChange]}
-          />
+          <DataTableFacetedFilter title="Tag" options={tags} />
+          <DataTableFacetedFilter title="Status" options={statuses} />
           <Button variant="ghost">
             Price
             <ArrowUpDown className="ml-2 h-4 w-4" />
