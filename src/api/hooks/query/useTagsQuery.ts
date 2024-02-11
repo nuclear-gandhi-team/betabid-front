@@ -8,13 +8,12 @@ import { Tag } from "@/api/types/tag";
 
 const useTagsQuery = ({
   onSuccessCallback,
-  ...rest
 }: {
   onSuccessCallback?: (data: Tag[]) => void;
 }): [Tag[] | undefined, boolean, boolean] => {
   const { data, isLoading, isError } = useQuery(
-    ["getTags", rest],
-    () => Lots.getTags(rest),
+    ["getTags"],
+    () => Lots.getTags(),
     {
       onSuccess: (data) => {
         if (typeof onSuccessCallback === "function") {
