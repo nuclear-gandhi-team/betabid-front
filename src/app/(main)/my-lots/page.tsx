@@ -22,7 +22,7 @@ const Page = () => (
     <LotCard
       title="Six-Piece Ferrari Testarossa Luggage Set by Schedoni"
       imageSrc="/img.png"
-      status="active"
+      status="open"
       isSaved
       description="This six-piece luggage set was produced by Schedoni of Modena for use in a Ferrari Testarossa. The bags are constructed of black leather and feature brass hardware, black stitching, and beige interior lining. Each bag is debossed with a prancing horse logo and “testarossa” script. Acquired by the seller in 2023, this luggage set is now offered at no reserve in Laren, Netherlands, with a Testarossa brochure, combination lock instructions, six luggage tags, five dust bags, four padlocks, and five sets of keys and key wallets."
       currentPrice={12000.0}
@@ -32,7 +32,7 @@ const Page = () => (
     <LotCard
       title="Ferrari 575M Maranello Literature, Battery Charger, and Luggage Collection by Schedoni"
       imageSrc="/img_1.png"
-      status="ended"
+      status="finished"
       isSaved={false}
       description="This collection of Ferrari 575M Maranello accessories and literature includes two Schedoni soft garment bags and a suitcase in addition to three dust bags and a Ferrari-branded battery charger. Documentation in the collection consists of 575M Maranello manufacturer’s literature housed in a leather folio in addition to a 2002 Ferrari Yearbook, a 575M Maranello sales brochure, and a press folder and CD. Acquired by the seller in 2023, the collection is now offered at no reserve in Laren, Netherlands."
       currentPrice={21.58}

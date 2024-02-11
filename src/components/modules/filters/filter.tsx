@@ -29,18 +29,33 @@ interface DataTableFacetedFilterProps<TData, TValue> {
     value: string;
     icon?: React.ComponentType<{ className?: string }>;
   }[];
+  onChange?: (selectedValues: string[]) => void;
 }
 
 export function DataTableFacetedFilter<TData, TValue>({
   column,
   title,
   options,
+  onChange,
 }: DataTableFacetedFilterProps<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues();
   const [selectedValues, setSelectedValues] = React.useState(
     new Set(column?.getFilterValue() as string[]),
   );
-
+  const handleSelect = (value: string) => {
+    const newSelectedValues = new Set(selectedValues);
+    if (newSelectedValues.has(value)) {
+      newSelectedValues.delete(value);
+    } else {
+      newSelectedValues.add(value);
+    }
+    setSelectedValues(newSelectedValues);
+    if (onChange) {
+      setTimeout(() => {
+        onChange(Array.from(newSelectedValues));
+      }, 2000); // Задержка в 2 секунды
+    }
+  };
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -105,6 +120,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                       column?.setFilterValue(
                         filterValues.length ? filterValues : undefined,
                       );
+                      handleSelect(option.value);
                     }}
                   >
                     <div
