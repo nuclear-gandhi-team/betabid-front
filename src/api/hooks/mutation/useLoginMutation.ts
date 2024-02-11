@@ -8,7 +8,6 @@ import { User } from "@/api/services/user";
 import { LoginCredentials, LoginResponse } from "@/api/types/login-credentials";
 
 const useLoginMutation = () => {
-  const inThreeHours = new Date(new Date().getTime() + 3 * 60 * 60 * 1000);
   const { mutate, isLoading, isError, data } = useMutation<
     LoginResponse,
     Error,
@@ -16,7 +15,6 @@ const useLoginMutation = () => {
   >((loginData: LoginCredentials) => User.postLoginCredentials(loginData), {
     onSuccess: (data) => {
       Cookies.set("jwtToken", data.token, {
-        expires: inThreeHours,
         secure: true,
         sameSite: "strict",
       });

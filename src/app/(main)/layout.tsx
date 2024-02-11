@@ -13,7 +13,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <div className="border-r border-b md:w-12 md:min-h-screen md:border-b-0">
         <div className="p-3 flex justify-center">
           <Avatar className="h-7 w-7">
-            <AvatarFallback>Hj</AvatarFallback>
+            <AvatarFallback>HJ</AvatarFallback>
           </Avatar>
         </div>
         <Separator className="mb-1.5" />

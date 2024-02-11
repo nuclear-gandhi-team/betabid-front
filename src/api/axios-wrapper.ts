@@ -5,12 +5,17 @@ const axiosInstance = axios.create({
   baseURL: process.env.API_URL,
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  const token = Cookies.get("jwtToken");
-  if (token) {
-    config.headers.Authorization = token;
-  }
-  return config;
-});
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = Cookies.get("jwtToken");
+    if (token) {
+      config.headers.Authorization = token;
+    }
+    return config;
+  },
+  (err) => {
+    return Promise.reject(err);
+  },
+);
 
 export default axiosInstance;
