@@ -68,7 +68,6 @@ const Page = () => {
     formData.append("betStep", data.betStep);
     formData.append("startPrice", data.startPrice);
     formData.append("pictures", data.pictures);
-    formData.append("ownerId", String(1));
 
     if (data.pictures && document.getElementById("picture")) {
       const pictureInput = document.getElementById(

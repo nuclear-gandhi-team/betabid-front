@@ -6,7 +6,6 @@ export type CreateLot = {
   deadline: string;
   betStep: number;
   tagIds: number[];
-  ownerId: string;
 };
 
 export type CreateLotResponse = {
