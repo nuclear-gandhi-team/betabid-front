@@ -15,7 +15,7 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (err) => {
-    if (err.response.status === 401 || 400) {
+    if (err.response.status === 401) {
       redirect("../auth/login");
     }
     return Promise.reject(err);

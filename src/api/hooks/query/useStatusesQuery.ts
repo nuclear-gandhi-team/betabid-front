@@ -8,13 +8,12 @@ import { Status } from "@/api/types/status";
 
 const useStatusesQuery = ({
   onSuccessCallback,
-  ...rest
 }: {
   onSuccessCallback?: (data: Status[]) => void;
 }): [Status[] | undefined, boolean, boolean] => {
   const { data, isLoading, isError } = useQuery(
-    ["getStatuses", rest],
-    () => Lots.getStatuses(rest),
+    ["getStatuses"],
+    () => Lots.getStatuses(),
     {
       onSuccess: (data) => {
         if (typeof onSuccessCallback === "function") {

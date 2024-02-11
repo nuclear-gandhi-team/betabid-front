@@ -2,9 +2,12 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import useCreateLotMutation from "@/api/hooks/mutation/useCreateLotMutation";
+import useTagsQuery from "@/api/hooks/query/useTagsQuery";
 import PageTitle from "@/components/modules/page-title";
 import { Button } from "@/components/ui/button";
 import DatePickerForm from "@/components/ui/date-picker-form";
@@ -27,24 +30,56 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 const CreateSchema = z.object({
-  title: z.string().min(1),
+  name: z.string().min(1),
   description: z.string().min(1),
-  img: z.string().min(1),
-  tag: z.string().min(1),
-  startDate: z.date(),
-  deadline: z.date(),
-  currentPrice: z.string().min(1),
-  step: z.string().min(1),
+  tagIds: z.string().min(1),
+  dateStarted: z.date().min(new Date()),
+  deadline: z.date().min(new Date()),
+  betStep: z.string().min(1),
+  startPrice: z.string().min(1),
+  pictures: z.string().min(1),
 });
 
 const Page = () => {
+  const router = useRouter();
+  const { mutate: lotCreation } = useCreateLotMutation({
+    onSuccessfulCallback: (id: string) => {
+      toast.success("Lot created successfully");
+      router.push(`/lots/${id}`);
+    },
+  });
+  const [tags, isLoading] = useTagsQuery({});
   const form = useForm<z.infer<typeof CreateSchema>>({
     resolver: zodResolver(CreateSchema),
   });
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   const handleSubmit = (data: z.infer<typeof CreateSchema>) => {
-    toast("We submitted the new rate!");
-    console.log(data);
+    const formData = new FormData();
+
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("tagIds", data.tagIds);
+    formData.append("dateStarted", data.dateStarted.toISOString());
+    formData.append("deadline", data.deadline.toISOString());
+    formData.append("betStep", data.betStep);
+    formData.append("startPrice", data.startPrice);
+    formData.append("pictures", data.pictures);
+
+    if (data.pictures && document.getElementById("picture")) {
+      const pictureInput = document.getElementById(
+        "picture",
+      ) as HTMLInputElement;
+      if (pictureInput.files) {
+        for (let i = 0; i < pictureInput.files.length; i++) {
+          formData.append("pictures", pictureInput.files[i]);
+        }
+      }
+    }
+    lotCreation(formData);
   };
 
   return (
@@ -61,16 +96,16 @@ const Page = () => {
         >
           <FormField
             control={form.control}
-            name="title"
+            name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel color="black">Title</FormLabel>
+                <FormLabel color="black">Name</FormLabel>
                 <FormControl>
                   <Input placeholder="Antique chair" {...field} />
                 </FormControl>
                 <FormDescription>
-                  This is a public display title for your lot. People will see
-                  it on browse page and in search results.
+                  This is a public display name for your lot. People will see it
+                  on browse page and in search results.
                 </FormDescription>
               </FormItem>
             )}
@@ -96,11 +131,17 @@ const Page = () => {
           />
           <FormField
             control={form.control}
-            name="img"
+            name="pictures"
             render={({ field }) => (
               <FormItem className="flex flex-col">
                 <FormLabel>Photo</FormLabel>
-                <Input id="picture" type="file" accept="image/*" {...field} />
+                <Input
+                  id="picture"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  {...field}
+                />
                 <FormDescription>
                   This is a photo for your lot. People will see it on browse.
                 </FormDescription>
@@ -109,7 +150,7 @@ const Page = () => {
           />
           <FormField
             control={form.control}
-            name="tag"
+            name="tagIds"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Tag</FormLabel>
@@ -123,9 +164,12 @@ const Page = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="antique">Antique</SelectItem>
-                    <SelectItem value="tech">Tech</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    {tags &&
+                      tags.map((tag) => (
+                        <SelectItem key={tag.id} value={`${tag.id}`}>
+                          {tag.name}
+                        </SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
                 <FormDescription>
@@ -139,7 +183,7 @@ const Page = () => {
           <div className="flex gap-5 flex-col md:flex-row">
             <FormField
               control={form.control}
-              name="currentPrice"
+              name="startPrice"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel color="black">Current Price</FormLabel>
@@ -155,7 +199,7 @@ const Page = () => {
             />
             <FormField
               control={form.control}
-              name="step"
+              name="betStep"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel color="black">Step</FormLabel>
@@ -173,7 +217,7 @@ const Page = () => {
           <div className="flex gap-5 flex-col md:flex-row">
             <FormField
               control={form.control}
-              name="startDate"
+              name="dateStarted"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Start date</FormLabel>
