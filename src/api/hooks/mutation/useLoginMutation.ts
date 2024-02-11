@@ -7,7 +7,11 @@ import { toast } from "sonner";
 import { User } from "@/api/services/user";
 import { LoginCredentials, LoginResponse } from "@/api/types/login-credentials";
 
-const useLoginMutation = () => {
+const useLoginMutation = ({
+  onSuccessfulCallback,
+}: {
+  onSuccessfulCallback?: () => void;
+}) => {
   const { mutate, isLoading, isError, data } = useMutation<
     LoginResponse,
     Error,
@@ -19,6 +23,9 @@ const useLoginMutation = () => {
         sameSite: "strict",
       });
       toast("Login successful");
+      if (onSuccessfulCallback) {
+        onSuccessfulCallback();
+      }
     },
     onError: (error) => {
       toast(`Failed to log in: ${error.message}`);

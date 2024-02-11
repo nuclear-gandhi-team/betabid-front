@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { redirect } from "next/navigation";
 
 const axiosInstance = axios.create({
   baseURL: process.env.API_URL,
@@ -14,6 +15,9 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (err) => {
+    if (err.response.status === 401 || 400) {
+      redirect("../auth/login");
+    }
     return Promise.reject(err);
   },
 );

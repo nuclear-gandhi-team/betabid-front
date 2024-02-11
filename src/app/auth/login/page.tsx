@@ -2,11 +2,11 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import useLoginMutation from "@/api/hooks/mutation/useLoginMutation";
 import { Button } from "@/components/ui/button";
-import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -23,12 +23,15 @@ const LoginSchema = z.object({
   password: z.string().min(1, { message: "Password is required" }),
 });
 
-const LoginModal = () => {
+const Page = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
   });
 
-  const { mutate: credentials } = useLoginMutation();
+  const { mutate: credentials } = useLoginMutation({
+    onSuccessfulCallback: () => router.push("/browse"),
+  });
 
   const handleSubmit = (data: z.infer<typeof LoginSchema>) => {
     credentials({ login: data.username, password: data.password });
@@ -36,7 +39,18 @@ const LoginModal = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="space-y-6 p-20"
+      >
+        <div className="flex flex-col space-y-2 text-center">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Login into account
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Enter your credentials to access your account.
+          </p>
+        </div>
         <FormField
           control={form.control}
           name="username"
@@ -66,17 +80,19 @@ const LoginModal = () => {
             </FormItem>
           )}
         />
-        <DialogFooter className="gap-3 sm:gap-0">
-          <DialogClose asChild>
-            <Button variant="ghost" type="button">
-              Cancel
-            </Button>
-          </DialogClose>
+        <div className="flex justify-between">
           <Button type="submit">Submit</Button>
-        </DialogFooter>
+          <Button
+            variant="ghost"
+            type="button"
+            onClick={() => router.push("./register")}
+          >
+            Register
+          </Button>
+        </div>
       </form>
     </Form>
   );
 };
 
-export default LoginModal;
+export default Page;

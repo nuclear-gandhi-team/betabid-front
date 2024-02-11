@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import AuthModal from "@/components/modules/auth/auth-modal";
 import PageTitle from "@/components/modules/page-title";
 import {
   AlertDialog,
@@ -69,7 +68,6 @@ const Page = () => {
         title="Settings"
         description="Here you can manage your account settings"
       />
-      <AuthModal />
       <Form {...formName}>
         <form
           onSubmit={formName.handleSubmit(handleSubmitName)}
