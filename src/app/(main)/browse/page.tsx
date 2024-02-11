@@ -20,13 +20,9 @@ import {
 const Page = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [nameStartsWith, setNameStartsWith] = React.useState("");
-  const [selectedTags, setSelectedTags] = React.useState([]);
-  const [selectedStatus, setSelectedStatus] = React.useState("");
   const [data, isLoading] = useAllLotsQuery({
     Page: currentPage,
     NameStartsWith: nameStartsWith,
-    Tags: selectedTags,
-    Status: selectedStatus,
   });
   const handlePageClick = (page: number) => {
     setCurrentPage(page);
@@ -47,11 +43,7 @@ const Page = () => {
   return (
     <div className="flex flex-col gap-y-7 pb-4">
       <PageTitle title="Browse" description="Here you can find new lots" />
-      <DataTableToolbar
-        onNameFilterChange={setNameStartsWith}
-        onTagFilterChange={setSelectedTags}
-        onStatusFilterChange={setSelectedStatus}
-      />
+      <DataTableToolbar onNameFilterChange={setNameStartsWith} />
       {data &&
         data.lots &&
         data.lots.map((lot) => (
