@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import useLogin from "@/api/hooks/query/useLogin";
+import useLoginMutation from "@/api/hooks/mutation/useLoginMutation";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
@@ -28,7 +28,7 @@ const LoginModal = () => {
     resolver: zodResolver(LoginSchema),
   });
 
-  const { mutate: credentials } = useLogin();
+  const { mutate: credentials } = useLoginMutation();
 
   const handleSubmit = (data: z.infer<typeof LoginSchema>) => {
     credentials({ login: data.username, password: data.password });

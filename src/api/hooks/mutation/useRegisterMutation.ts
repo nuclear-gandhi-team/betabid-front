@@ -3,13 +3,13 @@
 import { useMutation } from "react-query";
 import { toast } from "sonner";
 
-import { Registration } from "@/api/services/registration";
-import { RegistrationCredentials } from "@/api/types/registrationCredentials";
+import { User } from "@/api/services/user";
+import { RegistrationCredentials } from "@/api/types/registration-credentials";
 
-const useRegister = () => {
+const useRegisterMutation = () => {
   const { mutate, isLoading, isError } = useMutation(
     (registerData: RegistrationCredentials) =>
-      Registration.postRegistrationCredentials(registerData),
+      User.postRegistrationCredentials(registerData),
     {
       onSuccess: () => {
         toast("Account was created, you need only to login");
@@ -23,4 +23,4 @@ const useRegister = () => {
   return { mutate, isLoading, isError };
 };
 
-export default useRegister;
+export default useRegisterMutation;

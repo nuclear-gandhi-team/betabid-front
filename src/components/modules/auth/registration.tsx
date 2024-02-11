@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-import useRegister from "@/api/hooks/query/useRegister";
+import useRegisterMutation from "@/api/hooks/mutation/useRegisterMutation";
 import { Button } from "@/components/ui/button";
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
@@ -30,7 +30,7 @@ const RegistrationModal = () => {
     resolver: zodResolver(RegistrationSchema),
   });
 
-  const { mutate: credentials } = useRegister();
+  const { mutate: credentials } = useRegisterMutation();
 
   const handleSubmit = (data: z.infer<typeof RegistrationSchema>) => {
     credentials({

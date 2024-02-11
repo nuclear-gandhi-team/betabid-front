@@ -1,3 +1,5 @@
+import { BidHistory } from "@/api/types/bid-history";
+
 export type Lot = {
   id: number;
   title: string;
@@ -15,37 +17,5 @@ export type Lot = {
   ownerName: string;
   bidHistory: BidHistory[];
   isSaved: boolean;
-  tags: Tag[];
-};
-
-export type BidHistory = {
-  id: number;
-  amount: number;
-  username: string;
-  time: Date;
-  userEmail: string;
-};
-
-export type AllLot = Pick<
-  Lot,
-  | "id"
-  | "title"
-  | "deadline"
-  | "currentPrice"
-  | "description"
-  | "status"
-  | "isSaved"
-  | "images"
-  | "tags"
->;
-
-export type AllLots = {
-  lots: AllLot[];
-  totalPages: number;
-  currentPage: number;
-};
-
-export type Tag = {
-  id: number;
-  name: string;
+  tags: string[];
 };
