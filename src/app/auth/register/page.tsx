@@ -2,11 +2,11 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 
+import useRegisterMutation from "@/api/hooks/mutation/useRegisterMutation";
 import { Button } from "@/components/ui/button";
-import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -25,19 +25,39 @@ const RegistrationSchema = z.object({
   passwordConfirmation: z.string().min(1, { message: "Confirm your password" }),
 });
 
-const RegistrationModal = () => {
+const Page = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof RegistrationSchema>>({
     resolver: zodResolver(RegistrationSchema),
   });
 
+  const { mutate: credentials } = useRegisterMutation({
+    onSuccessfulCallback: () => router.push("./login"),
+  });
+
   const handleSubmit = (data: z.infer<typeof RegistrationSchema>) => {
-    toast("Account was created!");
-    console.log(data);
+    credentials({
+      login: data.username,
+      email: data.email,
+      password: data.password,
+      confirmPassword: data.passwordConfirmation,
+    });
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(handleSubmit)}
+        className="space-y-6 p-20"
+      >
+        <div className="flex flex-col space-y-2 text-center">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Create an account
+          </h1>
+          <p className="text-sm text-muted-foreground">
+            Enter your details to create your account.
+          </p>
+        </div>
         <FormField
           control={form.control}
           name="username"
@@ -98,17 +118,19 @@ const RegistrationModal = () => {
             </FormItem>
           )}
         />
-        <DialogFooter className="gap-3 sm:gap-0">
-          <DialogClose asChild>
-            <Button variant="ghost" type="button">
-              Cancel
-            </Button>
-          </DialogClose>
+        <div className="flex justify-between">
           <Button type="submit">Submit</Button>
-        </DialogFooter>
+          <Button
+            variant="ghost"
+            type="button"
+            onClick={() => router.push("./login")}
+          >
+            Login
+          </Button>
+        </div>
       </form>
     </Form>
   );
 };
 
-export default RegistrationModal;
+export default Page;

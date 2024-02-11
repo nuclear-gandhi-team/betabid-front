@@ -55,6 +55,7 @@ const Page = () => {
       />
       <Form {...form}>
         <form
+          autoComplete="off"
           onSubmit={form.handleSubmit(handleSubmit)}
           className="space-y-6 lg:w-2/3 mt-10"
         >

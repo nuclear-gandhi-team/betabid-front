@@ -4,9 +4,9 @@ import { useQuery } from "react-query";
 import { toast } from "sonner";
 
 import { Lots } from "@/api/services/lots";
-import { AllLots } from "@/api/types/lot";
+import { AllLots } from "@/api/types/all-lot";
 
-const useGetAllLots = ({
+const useAllLotsQuery = ({
   onSuccessCallback,
   ...rest
 }: {
@@ -28,4 +28,4 @@ const useGetAllLots = ({
   return [data, isLoading, isError];
 };
 
-export default useGetAllLots;
+export default useAllLotsQuery;

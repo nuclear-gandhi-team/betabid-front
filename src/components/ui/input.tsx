@@ -15,6 +15,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className,
         )}
         ref={ref}
+        aria-autocomplete="both"
+        aria-haspopup={false}
+        autoCapitalize="off"
+        autoComplete="nope"
+        autoCorrect="off"
+        autoFocus={false}
         {...props}
       />
     );

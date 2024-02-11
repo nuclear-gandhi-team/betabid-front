@@ -1,6 +1,6 @@
 "use client";
 
-import useGetAllLots from "@/api/hooks/query/useGetAllLots";
+import useAllLotsQuery from "@/api/hooks/query/useAllLotsQuery";
 import { DataTableToolbar } from "@/components/modules/filters/toolbar";
 import PageTitle from "@/components/modules/page-title";
 import { SkeletonPage } from "@/components/modules/skeletons/skeleton-page";
@@ -14,7 +14,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 const Page = () => {
-  const [data, isLoading] = useGetAllLots({});
+  const [data, isLoading] = useAllLotsQuery({});
 
   if (isLoading) {
     return <SkeletonPage />;
